@@ -69,8 +69,8 @@ function Add(model){
 
         console.log("node消耗内存: " ,process.memoryUsage().heapUsed);
         console.log("已插入数据: " , num*1000);
-        console.log("累计用时 : " , +new Date() - start);
-
+        console.log("累计用时 : " ,( +new Date() - start) / 1000 , "s");
+	console.log("===============");
         num++;
     }); 
 }
