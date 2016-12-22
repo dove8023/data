@@ -3,9 +3,29 @@
 const orm = require("orm");
 const mysqlConfig = require("../db/mysql.json");
 const moment = require("moment");
+const log4js = require("log4js");
 
 orm.settings.set("connection.pool", true);
 // orm.settings.set("connection.debug", true);
+
+log4js.configure({
+    appenders: [
+        {
+            type : "file",
+            "filename": "../logs/cheese.log",
+            "maxLogSize" : 1024,
+            category: ["cheese" , "console"]
+        }
+    ],
+    replaceConsole : true
+});
+
+log4js.loadAppender("file");
+
+var logger = log4js.getLogger("cheese");
+logger.setLevel("INFO");
+
+
 
 let Person, 
     num = 1 ,  //执行次数
