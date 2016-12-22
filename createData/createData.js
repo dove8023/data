@@ -7,9 +7,8 @@ const moment = require("moment");
 orm.settings.set("connection.pool", true);
 // orm.settings.set("connection.debug", true);
 
-
 let Person, 
-    num = 0 ,  //执行次数
+    num = 1 ,  //执行次数
     start,     //开始时间
     length = process.argv[2] || 100;
 
@@ -21,7 +20,7 @@ orm.connect(mysqlConfig, function (err, db) {
         "name":String,
         "sex":String,
         "age":Number,
-        "createTime":Date
+        "createTime": String
     });
 
 
