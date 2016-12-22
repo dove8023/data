@@ -1,7 +1,7 @@
 /* 添加数据 */
 
 const orm = require("orm");
-const mysqlConfig = require("../db/mysql.json").service;
+const mysqlConfig = require("../db/mysql.json")[require("../db/config").mysql];
 const moment = require("moment");
 const log4js = require("log4js");
 
