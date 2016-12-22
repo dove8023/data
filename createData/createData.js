@@ -11,9 +11,6 @@ orm.settings.set("connection.pool", true);
 log4js.configure({
     appenders: [
         {
-            type : "console"
-        },
-        {
             type : "file",
             "filename": "../logs/cheese.log",
             "maxLogSize" : 10240,
