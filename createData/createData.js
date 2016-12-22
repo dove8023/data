@@ -4,8 +4,6 @@ const orm = require("orm");
 const mysqlConfig = require("../db/mysql.json");
 const moment = require("moment");
 
-console.log(mysqlConfig);
-
 orm.settings.set("connection.pool", true);
 // orm.settings.set("connection.debug", true);
 
@@ -61,18 +59,18 @@ function Add(model){
 
     model.create(arr , function(err , result){
 
-        if(num < length){
+        if(num <= length){
             Add(model);
         }
 
-        if(num == length - 1){
+        if(num == length){
             console.log("End Time：" , +new Date() - start);
+            process.exit();
         }
 
-        if(num % 10 == 0){
-            console.log("node消耗内存: " ,process.memoryUsage().heapUsed);
-            console.log("已插入数据: " , num*1000);
-        }
+        console.log("node消耗内存: " ,process.memoryUsage().heapUsed);
+        console.log("已插入数据: " , num*1000);
+        console.log("累计用时 : " , +new Date() - start);
 
         num++;
     }); 
