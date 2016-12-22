@@ -4,6 +4,7 @@ const orm = require("orm");
 const mysqlConfig = require("../db/mysql.json");
 const moment = require("moment");
 
+console.log(mysqlConfig);
 
 orm.settings.set("connection.pool", true);
 // orm.settings.set("connection.debug", true);
