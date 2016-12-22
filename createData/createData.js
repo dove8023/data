@@ -11,9 +11,12 @@ orm.settings.set("connection.pool", true);
 log4js.configure({
     appenders: [
         {
+            type : "console"
+        },
+        {
             type : "file",
             "filename": "../logs/cheese.log",
-            "maxLogSize" : 1024,
+            "maxLogSize" : 10240,
             category: ["cheese" , "console"]
         }
     ],
@@ -87,10 +90,12 @@ function Add(model){
             process.exit();
         }
 
-        console.log("node消耗内存: " ,process.memoryUsage().heapUsed);
-        console.log("已插入数据: " , num*1000);
-        console.log("累计用时 : " ,( +new Date() - start) / 1000 , "s");
-	console.log("===============");
+        let useTime = ( +new Date() - start) / 1000;
+
+        console.log("node消耗内存: " ,parseInt(process.memoryUsage().heapUsed / 1024 / 1024 * 100) / 100 , "MB");
+        console.log("已插入数据: " , num*1000 , "  平均每秒: " , parseInt( num*1000 / useTime , 10));
+        console.log("累计用时 : " , useTime , "s");
+        console.log("===============");
         num++;
     }); 
 }
