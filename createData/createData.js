@@ -13,7 +13,8 @@ log4js.configure({
         {
             type : "file",
             "filename": "../logs/cheese.log",
-            "maxLogSize" : 10240,
+            "maxLogSize" : 1024000,
+            "backups" : 20,
             category: ["cheese" , "console"]
         }
     ],
@@ -25,7 +26,7 @@ log4js.loadAppender("file");
 var logger = log4js.getLogger("cheese");
 logger.setLevel("INFO");
 
-
+console.log("系统启动 , " , new Date().toLocaleTimeString());
 
 let Person, 
     num = 1 ,  //执行次数
