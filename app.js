@@ -1,13 +1,16 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require("cookie-session");
-const dataModule = require("./dataModule");
-const redis = require("redis");
-const redisConfig = require("./db/redis.json");
+const ejs = require("ejs");
+
+
+
+// const dataModule = require("./dataModule");
+// const redis = require("redis");
+// const redisConfig = require("./db/redis.json");
 
 
 /*var client = redis.createClient(redisConfig);
@@ -24,8 +27,9 @@ var app = express();
 process.env.PORT = 3001;
 
 // view engine setup
+app.engine("html" , ejs.renderFile);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -48,15 +52,14 @@ app.use(cookieSession({
   // "store" : new RedisStore(redisConfig)
 }));
 
-new dataModule(app);
+// new dataModule(app);
 
 app.use(function(req , res , next){
   /*console.log(req.session);
   console.log(req.sessionOptions);
   console.log(req.cookies.SessionId);*/
-  console.log("yes");
   next();
-})
+});
 
 
 var Router = express.Router();
