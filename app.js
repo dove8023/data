@@ -37,7 +37,7 @@ app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.set("trust proxy" , 1);  //trust first proxy
 app.use(cookieSession({
@@ -96,6 +96,7 @@ if (app.get('env') === 'development') {
       message: err.message,
       error: err
     });
+
   });
 }
 

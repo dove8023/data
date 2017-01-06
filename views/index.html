@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
+<% include ./include/header.html %>
+
     <h1>hello</h1>
+    <div id="addMoudle">
+        {{message}}
+    </div>
+    <div id="page-wrapper" class="app" style="min-height: 1054px;">
+        <router-view></router-view>
+    </div>
+</div>
 </body>
 </html>
+<script src="/dist/js/vendor.min.js"></script>
+<script src="/dist/js/app.min.js"></script>
