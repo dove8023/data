@@ -8,23 +8,11 @@ let Vue = require("Vue");
 // let Vuex = require("Vuex");
 let $ = require("jQuery");
 
-console.log(Vue.version);
-
-
-$('#side-menu').metisMenu({
-    preventDefault: true,
+$(()=>{
+    $('#side-menu').metisMenu({
+        preventDefault: true,
+    });
 });
-
-let Profile = Vue.extend({
-    data(){
-        return {
-            message : "hello world"
-        }
-    }
-});
-
-// new Profile().$mount("#addMoudle");
-
 
 let VueRouter = require('vue-router');
 Vue.use(VueRouter);
@@ -34,8 +22,8 @@ Vue.use(VueRouter);
 const routes = [
     {
         path : "/foo" ,
-        component : { 
-            template: '<h2>Foo , Foo</h2>' 
+        component : {
+            template: '<h2>Foo , Foo</h2>'
         }
     },
     {
@@ -49,6 +37,13 @@ const routes = [
 let router = new VueRouter({
     routes
 });
+
+router.beforeEach((to , from , next) => {
+    console.log(from);
+
+    next();
+});
+
 
 const app = new Vue({
     router
