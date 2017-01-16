@@ -19,6 +19,7 @@ Vue.use(VueRouter);
 // // Vue.use(Vuex);
 
 
+//先定义，优先奏效
 const routes = [
     {
         path : "/foo" ,
@@ -31,6 +32,12 @@ const routes = [
         component : {
             template : "<h2>Bar , Bar</h2>"
         }
+    },
+    {
+        path : "*",
+        component : {
+            template : "<h2> GG </h2>"
+        }
     }
 ];
 
@@ -39,7 +46,7 @@ let router = new VueRouter({
 });
 
 router.beforeEach((to , from , next) => {
-    console.log(from);
+    console.log(to);
 
     next();
 });
