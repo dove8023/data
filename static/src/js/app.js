@@ -5,24 +5,20 @@
 */
 
 let Vue = require("Vue");
-// let Vuex = require("Vuex");
+let Vuex = require("Vuex");
 let $ = require("jQuery");
-
-$(()=>{
-    $('#side-menu').metisMenu({
-        preventDefault: true,
-    });
-});
+let Main = require("./component/main.vue");
+let store = require("./store");
 
 let VueRouter = require('vue-router');
+
 Vue.use(VueRouter);
-// // Vue.use(Vuex);
 
 
 //先定义，优先奏效
 const routes = [
     {
-        path : "/foo" ,
+        path : "/#/foo" ,
         component : {
             template: '<h2>Foo , Foo</h2>'
         }
@@ -35,48 +31,38 @@ const routes = [
     },
     {
         path : "*",
-        component : {
-            template : "<h2> GG </h2>"
-        }
+        component : Main
     }
 ];
 
 let router = new VueRouter({
-    routes
+    routes : routes
 });
 
 router.beforeEach((to , from , next) => {
-    console.log(to);
 
-    next();
+    // console.log("to" , to.path);
+    // console.log("=============");
+    
+    if(to.path == "/foo"){
+        alert("Not limit");
+        next(false);
+    }else{
+        next();
+    }
+    
+   
+
 });
 
+let SideBar = require("./component/sideBar.vue");
 
 const app = new Vue({
-    router
+    router : router,
+    components : {
+        "side-bar" : SideBar
+    }
 }).$mount("#app");
 
 
 
-
-
-
-
-// const app = Vue.extend({
-//     // components : {
-//     //     "side-bar" : SideBar
-//     // },
-//     // store : store,
-//     data : {
-//         message : "hello world",
-//         DATA    : {}
-//     },
-//     methods : {
-//         gg(){
-//             alert(1234);
-//         }
-//     }
-// });
-
-
-// router.start(app , "#addMoudle");

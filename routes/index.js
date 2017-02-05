@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-
+const Config = require("../config/");
 
 module.exports = (Router) =>{
 
@@ -10,6 +10,10 @@ module.exports = (Router) =>{
 	Router.get('/', function(req, res, next) {
 		res.render('index');
 	});
+
+    Router.get("/getConfig" , (req , res , next)=>{
+        res.json(Config);
+    });
 
 	return Router;
 }

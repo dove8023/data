@@ -143,8 +143,8 @@ gulp.task('font', function() {
 gulp.task('watch', function() {
     if (argv.env != 'pro') {
         webpackConfig.watch = true;
-        // webpackConfig.debug = true;
-        // webpackConfig.devtool = 'inline-source-map';
+        webpackConfig.debug = true;
+        webpackConfig.devtool = 'inline-source-map';
     }
     gulp.start('js', 'css', 'img', 'font');
     gulp.watch('./src/css/*', ['css']);

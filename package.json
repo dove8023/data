@@ -29,7 +29,8 @@
     "orm": "^3.1.0",
     "redis": "^2.6.2",
     "serve-favicon": "~2.3.0",
-    "vue-router": "^2.1.1"
+    "vue-router": "^2.1.1",
+    "vuex": "^2.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.7.7",
