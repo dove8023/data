@@ -7,7 +7,7 @@
 let Vue = require("Vue");
 let Vuex = require("Vuex");
 let $ = require("jQuery");
-let Main = require("./component/main.vue");
+let APP = require("./component/App.vue");
 let store = require("./store");
 
 let VueRouter = require('vue-router');
@@ -31,7 +31,7 @@ const routes = [
     },
     {
         path : "*",
-        component : Main
+        component : APP
     }
 ];
 
@@ -58,11 +58,13 @@ router.beforeEach((to , from , next) => {
 let SideBar = require("./component/sideBar.vue");
 
 const app = new Vue({
+    el : "#app",
     router : router,
     components : {
         "side-bar" : SideBar
     }
-}).$mount("#app");
+});
+
 
 
 

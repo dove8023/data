@@ -30,13 +30,13 @@ var webpackConfig = {
     entry: {
         app: './src/js/app.js',
         vendor: [
-            pwd + '/src/js/lib/vue2.min.js',
+            pwd + '/src/js/lib/vue2.js',
             // pwd + '/src/js/lib/vuex.min.js',
             pwd + '/src/js/lib/jquery.min.js',
             pwd + '/src/js/lib/bootstrap.min.js',
             pwd + '/src/js/lib/metisMenu.min.js',
             pwd + '/src/js/lib/moment.min.js',
-            pwd + '/src/js/lib/datePicker.min.js',
+            pwd + '/src/js/lib/daterangepicker.js',
             // pwd + '/src/js/lib/jquery-table.min.js',
             'vue-router',
             'echarts/lib/echarts',
@@ -66,7 +66,7 @@ var webpackConfig = {
     resolve: {
         extensions: ['', '.js', '.json', '.scss'],
         alias: {
-            'Vue': pwd + '/src/js/lib/vue2.min.js',
+            'Vue': pwd + '/src/js/lib/vue2.js',
             'jQuery': pwd + '/src/js/lib/jquery.min.js',
             '$': pwd + '/src/js/lib/jquery.min.js',
             // 'utils': pwd + '/src/js/utils/index.js',

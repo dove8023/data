@@ -1,42 +1,105 @@
 <template>
-    <div>
-        <m v-for="item in api" v-bind:data="item"></m>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"> 
+                    <strong>{{data.title}}</strong>
+                    <div class="head_group_con clearfix navbar-right">
+                        <m-date :config="pageComponents" @change="reload"></m-date>
+                        <m-btn :config="pageComponents"></m-btn>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="table_con table-responsive" id="table_1">
+                        <table class="table table-bordered table-condensed table-hover" role="grid" aria-describedby="dataTables_info">
+                            <thead>
+                                <tr>
+                                    <th>预计返利金额 <i style="opacity: 0.8;cursor: pointer" class="fa fa-question-circle-o"></i></th>
+                                    <th>预计获利人次 <i style="opacity: 0.8;cursor: pointer" class="fa fa-question-circle-o"></i></th>
+                                    <th>已取消返利金额 <i style="opacity: 0.8;cursor: pointer" class="fa fa-question-circle-o"></i></th>
+                                    <th>返利到账金额 <i style="opacity: 0.8;cursor: pointer" class="fa fa-question-circle-o"></i></th>
+                                    <th>预计返利订单数 <i style="opacity: 0.8;cursor: pointer" class="fa fa-question-circle-o"></i></th>
+                                    <th>返利到账订单数 <i style="opacity: 0.8;cursor: pointer" class="fa fa-question-circle-o"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="0"> <span> 1,083.34 </span> </td>
+                                    <td rowspan="0"> <span> 739 </span> </td>
+                                    <td rowspan="0"> <span> 1,175.08 </span> </td>
+                                    <td rowspan="0"> <span> 1,365.21 </span> </td>
+                                    <td rowspan="0"> <span> 865 </span> </td>
+                                    <td rowspan="0"> <span> 1,781 </span> </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
+<style>
+    .panel-heading{
+        line-height: 30px;
+    }
+</style>
 <script>
     let Vue = require("Vue");
-    let store=require("../store");
-
-    //单个视图界面
-    let SingleModule = require("./module.vue");
+    let $   = require("jQuery");
+    // let store=require("../store");
+    let DatePicker = require("./datePicker.vue");
+    let Btn        = require("./btn.vue");
+    let FilterBtn  = require("./filterBtn.vue");
 
     module.exports = {
         data(){
             return {
-                gg : "GG si mi da.",
                 path:"",
-                api:[]
+                api:[],
+                argv : {},
+                pageComponents : {}
             }
         },
         components : {
-            "m" : SingleModule
-        },
-        methods:{
-            go(){
-                store.commit("increment");
-            },
-            change(to , from , next){
-                this.path = to.path;
-                this.api = store.state.pageConfig[to.path];
-            }
+            "m-date" : DatePicker,
+            "m-btn"  : Btn
         },
         created(){
-            setTimeout(()=>{
-                this.change(this.$route);
-            } , 2000);
+            // console.log(this.data.query_api);
+            this.getData();
         },
-        watch : {
-            '$route' : 'change'
+        props : ["data"],
+        methods:{
+            getData(data){
+                let _this = this;                
+                $.ajax({
+                    url : _this.data.query_api,
+                    type: "get",
+                    data : data || {},
+                    success(result){
+                        // console.log(result);
+                        _this.pageComponents = result.components;
+                        // _this.date_picker = Components.date_picker || {};
+                    }
+                });
+            },
+            getDataByParam(data){
+                let _this = this;
+                $.ajax({
+                    url : _this.data.query_api,
+                    type: "get",
+                    data : data || {},
+                    success(result){
+                        console.log(result);
+                    }
+                });
+            },
+            reload(key , value){
+                this.argv[key] = value;
+                this.getDataByParam(this.argv);
+            },
         }
     };
 </script>
