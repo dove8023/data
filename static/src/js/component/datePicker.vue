@@ -109,6 +109,9 @@ export default {
     },
     mounted(){
         this.el = $("#"+this.ID).find("input");
+    },
+    updated(){
+        console.log('datepick');
     }
 };
 </script>

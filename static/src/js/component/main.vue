@@ -5,12 +5,12 @@
                 <div class="panel-heading"> 
                     <strong>{{data.title}}</strong>
                     <div class="head_group_con clearfix navbar-right">
-                        <m-date :config="pageComponents" @change="reload"></m-date>
-                        <m-btn :config="pageComponents"></m-btn>
+                        <m-date :config="pageComponents" @ready="componentReady" @change="reload"></m-date>
+                        <m-btn :config="pageComponents" @ready="componentReady"></m-btn>
                     </div>
                 </div>
                 <div class="panel-body">
-
+                    <m-filterbtn :config="pageComponents" @change="reload" @ready="componentReady"></m-filterbtn>
                     <div class="table_con table-responsive" id="table_1">
                         <table class="table table-bordered table-condensed table-hover" role="grid" aria-describedby="dataTables_info">
                             <thead>
@@ -53,18 +53,28 @@
     let Btn        = require("./btn.vue");
     let FilterBtn  = require("./filterBtn.vue");
 
+
+    //需要传递默认参数的组件
+    let DefaultParam = ["date_picker" , "filter_select"];
+
     module.exports = {
         data(){
             return {
                 path:"",
                 api:[],
                 argv : {},
-                pageComponents : {}
+                pageComponents : {},
+                defaultParam : {
+                    total : 0,    //总共默认参数个数
+                    count : 0,    //就绪默认参数个数
+                    defaultParam : ["date_picker" , "filter_select"]        //需要传递默认参数的组件
+                }
             }
         },
         components : {
             "m-date" : DatePicker,
-            "m-btn"  : Btn
+            "m-btn"  : Btn,
+            "m-filterbtn" : FilterBtn
         },
         created(){
             // console.log(this.data.query_api);
@@ -86,6 +96,7 @@
                 });
             },
             getDataByParam(data){
+                console.log("param" ,  data);
                 let _this = this;
                 $.ajax({
                     url : _this.data.query_api,
@@ -96,10 +107,26 @@
                     }
                 });
             },
+            componentReady(arr){
+                //所有子组件都执行，没有的给空
+                if(arr && arr.length){
+                    for(let item of arr){
+                        this.argv[item.key] = item.value;
+                    }
+                }
+                this.defaultParam.count++;
+                if(this.defaultParam.count == this.$children.length){
+                    console.log('default param reday' , this.argv);
+                }
+                
+            },
             reload(key , value){
                 this.argv[key] = value;
                 this.getDataByParam(this.argv);
             },
+        },
+        mounted(){
+            console.log(this);
         }
     };
 </script>

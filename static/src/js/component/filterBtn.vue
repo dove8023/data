@@ -1,12 +1,10 @@
 <template>
-    <div class="filter_select">
+    <div class="filter_select" v-show="Arr.length != 0">
         <div class="filter_group" id="filter_group_0_0">
-            <div class="group"> <strong>类型：</strong>
+            <div class="group" v-for="item in Arr"> 
+                <strong>{{item.title}}：</strong>
                 <div class="btn_group">
-                    <div>
-                        <button class="">ITEM</button>
-                        <button class="active">SKU</button>
-                    </div>
+                    <button @click="onclick($event , item.filter_key , obj.key)" v-for="(obj , index) in item.groups" v-bind:class="{active:index==0}">{{obj.value}}</button>
                 </div>
             </div>
         </div>
@@ -141,9 +139,53 @@
 }
 </style>
 <script>
+
+    let $ = require("jQuery");
     export default {
         data(){
-            return {}
+            return {
+                Arr : []
+            }
+        },
+        props : {
+            config : {
+                require : true,
+                type    : Object
+            },
+            change : Function
+        },
+        watch : {
+            config(newVal , oldVal){
+                this.Arr = this.config.filter_select || [];
+            }
+        },
+        methods : {
+            onclick (ev , key , value){
+                let that = $(ev.target);
+                if(that.hasClass("active"))
+                    return;
+
+                that.parent().find("button").removeClass("active");
+                that.addClass("active");
+                console.log(that.html() , key , value);
+                this.$emit("change" , key , value);
+            }
+        },
+        updated(){
+            //更新结束,传递默认参数
+            if(!this.config.filter_select){
+                return;
+            }
+            
+            let Arr = [];
+            for(let item of this.config.filter_select){
+                let obj = {};
+                obj[item.filter_key] = item.groups[0].key;
+                Arr.push(obj);
+            }
+            this.$emit("ready" , Arr);
+        },
+        mounted(){
         }
     }
 </script>

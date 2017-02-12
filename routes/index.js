@@ -31,9 +31,18 @@ module.exports = (Router) =>{
                     "filter_key":"filter_key",
                     "groups":[{
                         "key":"ITEM",
-                        "value":"ITEM"
+                        "value":"ITEM汉字"
                     },{
-                        "key":"SKU","value":"SKU"
+                        "key":"SKU","value":"SKU汉字"
+                    }]
+                },{
+                    "title":"指标",
+                    "filter_key":"filter_key2",
+                    "groups":[{
+                        "key":"a",
+                        "value":"ITEM汉字aaa"
+                    },{
+                        "key":"b","value":"SKU汉字bbb"
                     }]
                 }]
             }
