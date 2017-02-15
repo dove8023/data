@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <m-filterbtn :config="pageComponents" @change="reload" @ready="componentReady"></m-filterbtn>
+                    <m-filterbtn :config="pageComponents" @ready="componentReady"></m-filterbtn>
                     <div class="table_con table-responsive" id="table_1">
                         <table class="table table-bordered table-condensed table-hover" role="grid" aria-describedby="dataTables_info">
                             <thead>

@@ -152,10 +152,11 @@
                 require : true,
                 type    : Object
             },
-            change : Function
+            ready : Function
         },
         watch : {
             config(newVal , oldVal){
+                console.log(newVal);
                 this.Arr = this.config.filter_select || [];
             }
         },
@@ -168,7 +169,7 @@
                 that.parent().find("button").removeClass("active");
                 that.addClass("active");
                 console.log(that.html() , key , value);
-                this.$emit("change" , key , value);
+                // this.$emit("change" , key , value);
             }
         },
         updated(){
